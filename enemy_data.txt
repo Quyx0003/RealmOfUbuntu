@@ -1,0 +1,341 @@
+Name: Ice Troll
+Class: Warrior
+Hitpoints: 25
+Damage: 8
+Race: Troll
+
+Name: Ice Ogre
+Class: Warrior
+Hitpoints: 45
+Damage: 18
+Race: Troll
+
+Name: Fire Ogre
+Class: Warrior
+Hitpoints: 50
+Damage: 20
+Race: Troll
+
+Name: Undead Vampire
+Class: Mage
+Hitpoints: 40
+Damage: 16
+Race: Undead
+
+Name: Undead Lich
+Class: Mage
+Hitpoints: 50
+Damage: 18
+Race: Undead
+
+Name: Goblin Assassin
+Class: Scout
+Hitpoints: 25
+Damage: 12
+Race: Goblin
+
+Name: Goblin Warlock
+Class: Mage
+Hitpoints: 35
+Damage: 14
+Race: Goblin
+
+Name: Orc Chieftain
+Class: Warrior
+Hitpoints: 55
+Damage: 22
+Race: Orc
+
+Name: Orc Warlock
+Class: Mage
+Hitpoints: 40
+Damage: 18
+Race: Orc
+
+Name: Dwarf King
+Class: Warrior
+Hitpoints: 50
+Damage: 20
+Race: Dwarf
+
+Name: Dwarf Rune Master
+Class: Mage
+Hitpoints: 45
+Damage: 18
+Race: Dwarf
+
+Name: Elf Champion
+Class: Warrior
+Hitpoints: 40
+Damage: 16
+Race: Elf
+
+Name: Elf Sorcerer
+Class: Mage
+Hitpoints: 35
+Damage: 14
+Race: Elf
+
+Name: Human Paladin
+Class: Warrior
+Hitpoints: 45
+Damage: 18
+Race: Human
+
+Name: Human Warlock
+Class: Mage
+Hitpoints: 35
+Damage: 14
+Race: Human
+
+Name: Beast Lion
+Class: Warrior
+Hitpoints: 45
+Damage: 18
+Race: Beast
+
+Name: Beast Dire Wolf
+Class: Warrior
+Hitpoints: 55
+Damage: 22
+Race: Beast
+
+Name: Dragon Wyrm
+Class: Warrior
+Hitpoints: 120
+Damage: 35
+Race: Dragon
+
+Name: Dragon Wyvern
+Class: Warrior
+Hitpoints: 150
+Damage: 40
+Race: Dragon
+
+Name: Ice Troll
+Class: Warrior
+Hitpoints: 25
+Damage: 8
+Race: Troll
+
+Name: Ice Ogre
+Class: Warrior
+Hitpoints: 45
+Damage: 18
+Race: Troll
+
+Name: Fire Ogre
+Class: Warrior
+Hitpoints: 50
+Damage: 20
+Race: Troll
+
+Name: Undead Vampire
+Class: Mage
+Hitpoints: 40
+Damage: 16
+Race: Undead
+
+Name: Undead Lich
+Class: Mage
+Hitpoints: 50
+Damage: 18
+Race: Undead
+
+Name: Goblin Assassin
+Class: Scout
+Hitpoints: 25
+Damage: 12
+Race: Goblin
+
+Name: Goblin Warlock
+Class: Mage
+Hitpoints: 35
+Damage: 14
+Race: Goblin
+
+Name: Orc Chieftain
+Class: Warrior
+Hitpoints: 55
+Damage: 22
+Race: Orc
+
+Name: Orc Warlock
+Class: Mage
+Hitpoints: 40
+Damage: 18
+Race: Orc
+
+Name: Dwarf King
+Class: Warrior
+Hitpoints: 50
+Damage: 20
+Race: Dwarf
+
+Name: Dwarf Rune Master
+Class: Mage
+Hitpoints: 45
+Damage: 18
+Race: Dwarf
+
+Name: Elf Champion
+Class: Warrior
+Hitpoints: 40
+Damage: 16
+Race: Elf
+
+Name: Elf Sorcerer
+Class: Mage
+Hitpoints: 35
+Damage: 14
+Race: Elf
+
+Name: Human Paladin
+Class: Warrior
+Hitpoints: 45
+Damage: 18
+Race: Human
+
+Name: Human Warlock
+Class: Mage
+Hitpoints: 35
+Damage: 14
+Race: Human
+
+Name: Beast Lion
+Class: Warrior
+Hitpoints: 45
+Damage: 18
+Race: Beast
+
+Name: Beast Dire Wolf
+Class: Warrior
+Hitpoints: 55
+Damage: 22
+Race: Beast
+
+Name: Dragon Wyrm
+Class: Warrior
+Hitpoints: 120
+Damage: 35
+Race: Dragon
+
+Name: Dragon Wyvern
+Class: Warrior
+Hitpoints: 150
+Damage: 40
+Race: Dragon
+
+Name: Ice Troll
+Class: Warrior
+Hitpoints: 25
+Damage: 8
+Race: Troll
+
+Name: Ice Ogre
+Class: Warrior
+Hitpoints: 45
+Damage: 18
+Race: Troll
+
+Name: Fire Ogre
+Class: Warrior
+Hitpoints: 50
+Damage: 20
+Race: Troll
+
+Name: Undead Vampire
+Class: Mage
+Hitpoints: 40
+Damage: 16
+Race: Undead
+
+Name: Undead Lich
+Class: Mage
+Hitpoints: 50
+Damage: 18
+Race: Undead
+
+Name: Goblin Assassin
+Class: Scout
+Hitpoints: 25
+Damage: 12
+Race: Goblin
+
+Name: Goblin Warlock
+Class: Mage
+Hitpoints: 35
+Damage: 14
+Race: Goblin
+
+Name: Orc Chieftain
+Class: Warrior
+Hitpoints: 55
+Damage: 22
+Race: Orc
+
+Name: Orc Warlock
+Class: Mage
+Hitpoints: 40
+Damage: 18
+Race: Orc
+
+Name: Dwarf King
+Class: Warrior
+Hitpoints: 50
+Damage: 20
+Race: Dwarf
+
+Name: Dwarf Rune Master
+Class: Mage
+Hitpoints: 45
+Damage: 18
+Race: Dwarf
+
+Name: Elf Champion
+Class: Warrior
+Hitpoints: 40
+Damage: 16
+Race: Elf
+
+Name: Elf Sorcerer
+Class: Mage
+Hitpoints: 35
+Damage: 14
+Race: Elf
+
+Name: Human Paladin
+Class: Warrior
+Hitpoints: 45
+Damage: 18
+Race: Human
+
+Name: Human Warlock
+Class: Mage
+Hitpoints: 35
+Damage: 14
+Race: Human
+
+Name: Beast Lion
+Class: Warrior
+Hitpoints: 45
+Damage: 18
+Race: Beast
+
+Name: Beast Dire Wolf
+Class: Warrior
+Hitpoints: 55
+Damage: 22
+Race: Beast
+
+Name: Dragon Wyrm
+Class: Warrior
+Hitpoints: 120
+Damage: 35
+Race: Dragon
+
+Name: Dragon Wyvern
+Class: Warrior
+Hitpoints: 150
+Damage: 40
+Race: Dragon
