@@ -74,8 +74,9 @@ int main() {
         switch(choice) {
             case 1:
                 clearConsole();
-                db.newHero();
-                exploreWorld(quest, hero);
+                if (db.newHero()) {
+                    exploreWorld(quest, hero);
+                }
                 break;
             case 2:
                 clearConsole();

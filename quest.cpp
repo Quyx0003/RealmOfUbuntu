@@ -6,13 +6,15 @@ Quest::Quest() {
                 "class CHAR(125),"
                 "hitpoints INT,"
                 "damage INT,"
-                "race CHAR(125))");
+                "race CHAR(125),"
+                "XPreward INT)");
 
     mQuery.exec("CREATE TABLE currentQuests ("
                 "id INT PRIMARY KEY,"
                 "name CHAR(125),"
                 "description TEXT,"
                 "reward INT,"
+                "goldReward INT,"
                 "enemyRace CHAR(125))");
 }
 
@@ -57,20 +59,22 @@ void Quest::loadQuest() {
     int questCount = 0;
     for (int i = 0; i < 3; ++i) {
         int index = indices[i];
-        mQuery.prepare("SELECT name, description, reward, enemyRace FROM questDatabase WHERE id = :id");
+        mQuery.prepare("SELECT name, description, reward, goldReward, enemyRace FROM questDatabase WHERE id = :id");
         mQuery.bindValue(":id", index);
         if (mQuery.exec() && mQuery.next()) {
             QString name = mQuery.value(0).toString();
             QString description = mQuery.value(1).toString();
             int reward = mQuery.value(2).toInt();
-            QString enemyRace = mQuery.value(3).toString();
+            int goldReward = mQuery.value(3).toInt();
+            QString enemyRace = mQuery.value(4).toString();
 
-            mQuery.prepare("INSERT INTO currentQuests (id, name, description, reward, enemyRace) "
-                           "VALUES (:id, :name, :description, :reward, :enemyRace)");
+            mQuery.prepare("INSERT INTO currentQuests (id, name, description, reward, goldReward, enemyRace) "
+                           "VALUES (:id, :name, :description, :reward, :goldReward, :enemyRace)");
             mQuery.bindValue(":id", i + 1); 
             mQuery.bindValue(":name", name);
             mQuery.bindValue(":description", description);
             mQuery.bindValue(":reward", reward);
+            mQuery.bindValue(":goldReward", goldReward);
             mQuery.bindValue(":enemyRace", enemyRace);
             if (mQuery.exec()) {
                 questCount++;
@@ -103,6 +107,7 @@ void Quest::printQuests() {
         QString name = mQuery.value(1).toString();
         QString description = mQuery.value(2).toString();
         int reward = mQuery.value(3).toInt();
+        int goldReward = mQuery.value(4).toInt();
 
         std::cout << "ID: " << id << std::endl;
         std::cout << "Name: " << name.toStdString() << std::endl;
@@ -111,6 +116,7 @@ void Quest::printQuests() {
         printWrapped(description.toStdString(), 60);
         
         std::cout << "Reward: " << reward << std::endl;
+        std::cout << "Gold Reward: " << goldReward << std::endl;
         std::cout << std::endl;
     }
 }
@@ -156,7 +162,7 @@ bool Quest::battle() {
     }
     enemy.name = mQuery.value(0).toString();
     enemy.className = mQuery.value(1).toString();
-    enemy.level = hero.level + 1;
+    enemy.level = hero.level;
     enemy.hitpoints = mQuery.value(2).toInt();
     enemy.damage = mQuery.value(3).toInt();
 
@@ -213,16 +219,6 @@ bool Quest::battle() {
 
 void Quest::attack(Character& attacker, Character& target, std::mt19937& g) {
     std::this_thread::sleep_for(std::chrono::milliseconds(1500)); 
-
-    std::string attackType;
-    if (attacker.className == "Warrior") {
-        attackType = "attacks";
-    } else if (attacker.className == "Scout") {
-        attackType = "shoots";
-    } else {
-        attackType = "casts a fireball on";
-    }
-
     std::cout << attacker.name.toStdString() << " attacks " << target.name.toStdString() << "!" << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(1500)); 
 
@@ -303,8 +299,9 @@ void Quest::chooseQuest() {
     }
 
     QString name = mQuery.value(1).toString();
-    int reward = mQuery.value(3).toInt();
-    QString enemyRace = mQuery.value(4).toString();
+    int questXPreward = mQuery.value(3).toInt();
+    int goldReward = mQuery.value(4).toInt();
+    QString enemyRace = mQuery.value(5).toString();
 
     mQuery.prepare("SELECT * FROM enemiesDatabase WHERE race = :race");
     mQuery.bindValue(":race", enemyRace);
@@ -320,6 +317,8 @@ void Quest::chooseQuest() {
         enemy.push_back(mQuery.value(2).toString());
         enemy.push_back(QString::number(mQuery.value(3).toInt()));
         enemy.push_back(QString::number(mQuery.value(4).toInt()));
+        enemy.push_back(mQuery.value(5).toString());
+        enemy.push_back(QString::number(mQuery.value(6).toInt()));
         enemies.push_back(enemy);
     }
 
@@ -334,17 +333,43 @@ void Quest::chooseQuest() {
 
     QString enemyName = enemies[0][0];
     QString enemyClass = enemies[0][1];
-    int hitpoints = enemies[0][2].toInt();
-    int damage = enemies[0][3].toInt();
+    int baseHitpoints = enemies[0][2].toInt();
+    int baseDamage = enemies[0][3].toInt();
+    int enemyXPreward = enemies[0][5].toInt();
 
-    mQuery.prepare("INSERT INTO currentEnemy (name, class, hitpoints, damage) "
-                   "VALUES (:name, :class, :hitpoints, :damage)");
+    int heroLevel = 0;
+    mQuery.exec("SELECT level FROM currentHero");
+    if (mQuery.next()) {
+        heroLevel = mQuery.value(0).toInt();
+    }
+    int hitpoints = baseHitpoints;
+    int damage = baseDamage;
+    if (enemyRace == "Human" || enemyRace == "Elf" || enemyRace == "Dwarf") {
+        hitpoints += (2 * heroLevel);
+        damage += heroLevel;
+    } else if (enemyRace == "Orc" || enemyRace == "Troll" || enemyRace == "Goblin") {
+        hitpoints += (3 * heroLevel);
+        damage += (2 * heroLevel);
+    } else if (enemyRace == "Undead" || enemyRace == "Dragon" || enemyRace == "Beast") {
+        hitpoints += (4 * heroLevel);
+        damage += (3 * heroLevel);
+    }
+    enemyXPreward = enemyXPreward * (1 + heroLevel / 10);
+    int XPreward = enemyXPreward + questXPreward;
+
+    mQuery.prepare("INSERT INTO currentEnemy (name, class, hitpoints, damage, race, XPreward) "
+                   "VALUES (:name, :class, :hitpoints, :damage, :race, :XPreward)");
     mQuery.bindValue(":name", enemyName);
     mQuery.bindValue(":class", enemyClass);
     mQuery.bindValue(":hitpoints", hitpoints);
     mQuery.bindValue(":damage", damage);
+    mQuery.bindValue(":race", enemyRace);
+    mQuery.bindValue(":XPreward", enemyXPreward);
     if (!mQuery.exec()) {
         std::cerr << "Failed to insert enemy data." << std::endl;
+        std::cout << "Press Enter to return to the main menu...";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.get();
         return;
     }
 
@@ -363,9 +388,12 @@ void Quest::chooseQuest() {
 
     if (battle()) {
         std::cout << "Congratulations! You have defeated " << enemyName.toStdString() << "." << std::endl;
-        std::cout << "You have earned " << reward << " experience points." << std::endl;
+        std::cout << "You have earned " << XPreward << " experience points and " << goldReward << " gold." << std::endl;
         mQuery.prepare("UPDATE currentHero SET experience = experience + :reward");
-        mQuery.bindValue(":reward", reward);
+        mQuery.bindValue(":reward", XPreward);
+        mQuery.exec();
+        mQuery.prepare("UPDATE currentHero SET goldAmount = goldAmount + :goldReward");
+        mQuery.bindValue(":goldReward", goldReward);
         mQuery.exec();
     } else {
         std::cout << "You have been defeated by " << enemyName.toStdString() << "." << std::endl;
@@ -373,6 +401,7 @@ void Quest::chooseQuest() {
     }
     std::cout << "Press Enter to return to the main menu...";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get();
 }
 
 

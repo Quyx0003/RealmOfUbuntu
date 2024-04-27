@@ -14,8 +14,9 @@ public:
     void clearConsole();
 
     void levelSystem();
-    void levelUp(int level);
+
     void printHero();
+    void GiveExperience(int experience);
 
 private:
     QSqlQuery mQuery, selectQuery, insertQuery, updateQuery;

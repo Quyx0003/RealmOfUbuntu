@@ -17,7 +17,7 @@ public:
 
     void clearConsole();
 
-    void newHero();
+    bool newHero();
     bool loadHero();
     void deleteHero();
 

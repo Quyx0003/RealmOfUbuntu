@@ -14,12 +14,13 @@ Database::Database() {
 
     mQuery.exec("CREATE TABLE heroDatabase ("
                 "id INT PRIMARY KEY AUTO_INCREMENT,"
-                "name CHAR(125)," 
+                "name CHAR(125),"
                 "class CHAR(125),"
-                "level INT," 
-                "experience INT," 
+                "level INT,"
+                "experience INT,"
                 "hitpoints INT,"
-                "damage INT)");
+                "damage INT,"
+                "goldAmount INT)");
 
     mQuery.exec("CREATE TABLE enemiesDatabase ("
                 "id INT PRIMARY KEY AUTO_INCREMENT,"
@@ -27,15 +28,17 @@ Database::Database() {
                 "class CHAR(125),"
                 "hitpoints INT,"
                 "damage INT,"
-                "race CHAR(125))");
+                "race CHAR(125),"
+                "XPreward INT)");
 
     mQuery.exec("CREATE TABLE questDatabase ("
                 "id INT PRIMARY KEY AUTO_INCREMENT,"
                 "name CHAR(125),"
                 "description TEXT,"
                 "reward INT,"
+                "goldReward INT,"
                 "enemyRace CHAR(125))");
-        
+
 }
 
 Database::~Database() {
@@ -52,7 +55,7 @@ void Database::clearConsole() {
     #endif
 }
 
-void Database::newHero() {
+bool Database::newHero() {
     std::string name;
     int choice;
 
@@ -91,30 +94,35 @@ void Database::newHero() {
             break;
     }
 
-    mQuery.prepare("INSERT INTO heroDatabase (name, class, level, hitpoints, damage)" 
-                   "VALUES (:name, :class, :level, :hitpoints, :damage)");
+    mQuery.prepare("INSERT INTO heroDatabase (name, class, level, experience, hitpoints, damage, goldAmount) "
+                   "VALUES (:name, :class, :level, :experience, :hitpoints, :damage, :goldAmount)");
     mQuery.bindValue(":name", QString::fromStdString(name));
     mQuery.bindValue(":class", QString::fromStdString(heroClass));
     mQuery.bindValue(":level", 1);
-    mQuery.bindValue(":hitpoints", 10);
-    mQuery.bindValue(":damage", 2);
+    mQuery.bindValue(":experience", 0);
+    mQuery.bindValue(":hitpoints", 25);
+    mQuery.bindValue(":damage", 8);
+    mQuery.bindValue(":goldAmount", 0);
 
     if (!mQuery.exec()) {
         std::cout << "Failed to add hero to heroDatabase: " << mQuery.lastError().text().toStdString() << std::endl;
-        return;
+        return false;
     }
 
-    mQuery.prepare("INSERT INTO currentHero (name, class, level, hitpoints, damage)" 
-                   "VALUES (:name, :class, :level, :hitpoints, :damage)");
+    mQuery.exec("DELETE FROM currentHero");
+    mQuery.prepare("INSERT INTO currentHero (name, class, level, experience, hitpoints, damage, goldAmount) "
+                   "VALUES (:name, :class, :level, :experience, :hitpoints, :damage, :goldAmount)");
     mQuery.bindValue(":name", QString::fromStdString(name));
     mQuery.bindValue(":class", QString::fromStdString(heroClass));
     mQuery.bindValue(":level", 1);
-    mQuery.bindValue(":hitpoints", 10);
-    mQuery.bindValue(":damage", 2);
+    mQuery.bindValue(":experience", 0);
+    mQuery.bindValue(":hitpoints", 25);
+    mQuery.bindValue(":damage", 8);
+    mQuery.bindValue(":goldAmount", 0);
 
     if (!mQuery.exec()) {
         std::cout << "Failed to add hero to currentHero: " << mQuery.lastError().text().toStdString() << std::endl;
-        return;
+        return false;
     }
 
     clearConsole();
@@ -122,6 +130,8 @@ void Database::newHero() {
     std::cout << "Press Enter to continue...";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.get();
+
+    return true;
 }
 
 bool Database::loadHero() {
@@ -129,11 +139,17 @@ bool Database::loadHero() {
 
     if (!mQuery.exec()) {
         std::cerr << "Failed to retrieve hero data: " << mQuery.lastError().text().toStdString() << std::endl;
+        std::cout << "Press Enter to return to the main menu...";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.get();
         return false;
     }
 
     if (!mQuery.next()) {
         std::cerr << "No heroes found in the database." << std::endl;
+        std::cout << "Press Enter to return to the main menu...";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.get();
         return false;
     }
 
@@ -145,6 +161,7 @@ bool Database::loadHero() {
         int experience = mQuery.value(4).toInt();
         int hitpoints = mQuery.value(5).toInt();
         int damage = mQuery.value(6).toInt();
+        int goldAmount = mQuery.value(7).toInt();
 
         std::cout << "Name: " << name.toStdString() << std::endl;
         std::cout << "Class: " << heroClass.toStdString() << std::endl;
@@ -152,6 +169,7 @@ bool Database::loadHero() {
         std::cout << "Experience: " << experience << std::endl;
         std::cout << "Hitpoints: " << hitpoints << std::endl;
         std::cout << "Damage: " << damage << std::endl;
+        std::cout << "Gold: " << goldAmount << std::endl;
         std::cout << std::endl;
 
     } while (mQuery.next());
@@ -190,15 +208,17 @@ bool Database::loadHero() {
     int experience = mQuery.value(4).toInt();
     int hitpoints = mQuery.value(5).toInt();
     int damage = mQuery.value(6).toInt();
+    int goldAmount = mQuery.value(7).toInt();
 
-    mQuery.prepare("INSERT INTO currentHero (name, class, level, experience, hitpoints, damage) "
-                        "VALUES (:name, :class, :level, :experience, :hitpoints, :damage)");
+    mQuery.prepare("INSERT INTO currentHero (name, class, level, experience, hitpoints, damage, goldAmount) "
+                   "VALUES (:name, :class, :level, :experience, :hitpoints, :damage, :goldAmount)");
     mQuery.bindValue(":name", name);
     mQuery.bindValue(":class", heroClass);
     mQuery.bindValue(":level", level);
     mQuery.bindValue(":experience", experience);
     mQuery.bindValue(":hitpoints", hitpoints);
     mQuery.bindValue(":damage", damage);
+    mQuery.bindValue(":goldAmount", goldAmount);
 
     if (!mQuery.exec()) {
         std::cerr << "Failed to insert hero data: " << mQuery.lastError().text().toStdString() << std::endl;
@@ -217,11 +237,17 @@ void Database::deleteHero() {
     std::cout << "Hero Information" << std::endl;
     if (!mQuery.exec("SELECT * FROM heroDatabase")) {
         std::cerr << "Failed to retrieve hero data: " << mQuery.lastError().text().toStdString() << std::endl;
+        std::cout << "Press Enter to return to the main menu...";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.get();
         return;
     }
 
     if (!mQuery.next()) {
         std::cerr << "No hero found in the database." << std::endl;
+        std::cout << "Press Enter to return to the main menu...";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.get();
         return;
     }
 
@@ -234,6 +260,7 @@ void Database::deleteHero() {
         int experience = mQuery.value(4).toInt();
         int hitpoints = mQuery.value(5).toInt();
         int damage = mQuery.value(6).toInt();
+        int goldAmount = mQuery.value(7).toInt();
 
         std::cout << "ID: " << id << std::endl;
         std::cout << "Name: " << name.toStdString() << std::endl;
@@ -242,12 +269,16 @@ void Database::deleteHero() {
         std::cout << "Experience: " << experience << std::endl;
         std::cout << "Hitpoints: " << hitpoints << std::endl;
         std::cout << "Damage: " << damage << std::endl;
+        std::cout << "Gold: " << goldAmount << std::endl;
         std::cout << std::endl;
         heroFound = true;
     } while (mQuery.next());
 
     if (!heroFound) {
         std::cerr << "No hero found in the database." << std::endl;
+        std::cout << "Press Enter to return to the main menu...";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.get();
         return;
     }
 
@@ -307,7 +338,7 @@ void Database::loadEnemiesFromFile() {
         }
     } 
 
-    for (int i = 0; i < enemyData.size(); i += 5) {
+    for (int i = 0; i < enemyData.size(); i += 6) {
         std::string name = enemyData[i];
         name.erase(0, name.find_first_not_of(" \t"));
         name.erase(name.find_last_not_of(" \t") + 1);
@@ -319,13 +350,15 @@ void Database::loadEnemiesFromFile() {
         std::string race = enemyData[i + 4];
         race.erase(0, race.find_first_not_of(" \t"));
         race.erase(race.find_last_not_of(" \t") + 1);
+        int XPreward = std::stoi(enemyData[i + 5]);
 
-        mQuery.prepare("INSERT INTO enemiesDatabase (name, class, hitpoints, damage, race) VALUES (:name, :class, :hitpoints, :damage, :race)");
+        mQuery.prepare("INSERT INTO enemiesDatabase (name, class, hitpoints, damage, race, XPreward) VALUES (:name, :class, :hitpoints, :damage, :race, :XPreward)");
         mQuery.bindValue(":name", QString::fromStdString(name));
         mQuery.bindValue(":class", QString::fromStdString(enemyclass));
         mQuery.bindValue(":hitpoints", hitpoints);
         mQuery.bindValue(":damage", damage);
         mQuery.bindValue(":race", QString::fromStdString(race));
+        mQuery.bindValue(":XPreward", XPreward);
 
         if (!mQuery.exec()) {
             std::cerr << "Failed to insert enemy into database: " << mQuery.lastError().text().toStdString() << std::endl;
@@ -354,7 +387,7 @@ void Database::loadQuestsFromFile() {
         }
     } 
 
-    for (int i = 0; i < questData.size(); i += 4) {
+    for (int i = 0; i < questData.size(); i += 5) {
         std::string name = questData[i];
         name.erase(0, name.find_first_not_of(" \t"));
         name.erase(name.find_last_not_of(" \t") + 1);      
@@ -362,14 +395,16 @@ void Database::loadQuestsFromFile() {
         description.erase(0, description.find_first_not_of(" \t"));
         description.erase(description.find_last_not_of(" \t") + 1);
         int reward = std::stoi(questData[i + 2]);
-        std::string enemyRace = questData[i + 3];
+        int goldReward = std::stoi(questData[i + 3]);
+        std::string enemyRace = questData[i + 4];
         enemyRace.erase(0, enemyRace.find_first_not_of(" \t"));
         enemyRace.erase(enemyRace.find_last_not_of(" \t") + 1);
 
-        mQuery.prepare("INSERT INTO questDatabase (name, description, reward, enemyRace) VALUES (:name, :description, :reward, :enemyRace)");
+        mQuery.prepare("INSERT INTO questDatabase (name, description, reward, goldReward, enemyRace) VALUES (:name, :description, :reward, :goldReward, :enemyRace)");
         mQuery.bindValue(":name", QString::fromStdString(name));
         mQuery.bindValue(":description", QString::fromStdString(description));
         mQuery.bindValue(":reward", reward);
+        mQuery.bindValue(":goldReward", goldReward);
         mQuery.bindValue(":enemyRace", QString::fromStdString(enemyRace));
 
         if (!mQuery.exec()) {
@@ -393,12 +428,14 @@ void Database::printEnemies() {
         int hitpoints = mQuery.value(3).toInt();
         int damage = mQuery.value(4).toInt();
         QString race = mQuery.value(5).toString();
+        int XPreward = mQuery.value(6).toInt();
 
         std::cout << "Name: " << name.toStdString() << std::endl;
         std::cout << "Class: " << enemyclass.toStdString() << std::endl;
         std::cout << "Hitpoints: " << hitpoints << std::endl;
         std::cout << "Damage: " << damage << std::endl;
         std::cout << "race: " << race.toStdString() << std::endl;
+        std::cout << "XPreward: " << XPreward << std::endl;
         std::cout << std::endl;
     }
 }
@@ -414,7 +451,8 @@ void Database::printQuests() {
         QString name = mQuery.value(1).toString();
         QString description = mQuery.value(2).toString();
         int reward = mQuery.value(3).toInt();
-        QString enemyRace = mQuery.value(4).toString();
+        int goldReward = mQuery.value(4).toInt();
+        QString enemyRace = mQuery.value(5).toString();
 
         std::cout << "Name: " << name.toStdString() << std::endl;
         std::cout << "Description:";
@@ -439,6 +477,7 @@ void Database::printQuests() {
         }
         
         std::cout << "Reward: " << reward << std::endl;
+        std::cout << "Gold Reward: " << goldReward << std::endl;
         std::cout << "Enemy Race: " << enemyRace.toStdString() << std::endl;
         std::cout << std::endl;
     }
@@ -464,6 +503,7 @@ void Database::printHero() {
         int experience = mQuery.value(4).toInt();
         int hitpoints = mQuery.value(5).toInt();
         int damage = mQuery.value(6).toInt();
+        int goldAmount = mQuery.value(7).toInt();
 
         std::cout << "ID: " << id << std::endl;
         std::cout << "Name: " << name.toStdString() << std::endl;
@@ -472,6 +512,7 @@ void Database::printHero() {
         std::cout << "Experience: " << experience << std::endl;
         std::cout << "Hitpoints: " << hitpoints << std::endl;
         std::cout << "Damage: " << damage << std::endl;
+        std::cout << "Gold: " << goldAmount << std::endl;
         std::cout << std::endl;
     }
 }

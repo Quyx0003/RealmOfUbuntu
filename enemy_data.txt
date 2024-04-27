@@ -1,341 +1,132 @@
 Name: Ice Troll
 Class: Warrior
-Hitpoints: 25
-Damage: 8
+Hitpoints: 12
+Damage: 4
 Race: Troll
+XPreward: 30
 
 Name: Ice Ogre
 Class: Warrior
-Hitpoints: 45
-Damage: 18
-Race: Troll
-
-Name: Fire Ogre
-Class: Warrior
-Hitpoints: 50
-Damage: 20
-Race: Troll
-
-Name: Undead Vampire
-Class: Mage
-Hitpoints: 40
-Damage: 16
-Race: Undead
-
-Name: Undead Lich
-Class: Mage
-Hitpoints: 50
-Damage: 18
-Race: Undead
-
-Name: Goblin Assassin
-Class: Scout
-Hitpoints: 25
-Damage: 12
-Race: Goblin
-
-Name: Goblin Warlock
-Class: Mage
-Hitpoints: 35
-Damage: 14
-Race: Goblin
-
-Name: Orc Chieftain
-Class: Warrior
-Hitpoints: 55
-Damage: 22
-Race: Orc
-
-Name: Orc Warlock
-Class: Mage
-Hitpoints: 40
-Damage: 18
-Race: Orc
-
-Name: Dwarf King
-Class: Warrior
-Hitpoints: 50
-Damage: 20
-Race: Dwarf
-
-Name: Dwarf Rune Master
-Class: Mage
-Hitpoints: 45
-Damage: 18
-Race: Dwarf
-
-Name: Elf Champion
-Class: Warrior
-Hitpoints: 40
-Damage: 16
-Race: Elf
-
-Name: Elf Sorcerer
-Class: Mage
-Hitpoints: 35
-Damage: 14
-Race: Elf
-
-Name: Human Paladin
-Class: Warrior
-Hitpoints: 45
-Damage: 18
-Race: Human
-
-Name: Human Warlock
-Class: Mage
-Hitpoints: 35
-Damage: 14
-Race: Human
-
-Name: Beast Lion
-Class: Warrior
-Hitpoints: 45
-Damage: 18
-Race: Beast
-
-Name: Beast Dire Wolf
-Class: Warrior
-Hitpoints: 55
-Damage: 22
-Race: Beast
-
-Name: Dragon Wyrm
-Class: Warrior
-Hitpoints: 120
-Damage: 35
-Race: Dragon
-
-Name: Dragon Wyvern
-Class: Warrior
-Hitpoints: 150
-Damage: 40
-Race: Dragon
-
-Name: Ice Troll
-Class: Warrior
-Hitpoints: 25
+Hitpoints: 20
 Damage: 8
 Race: Troll
-
-Name: Ice Ogre
-Class: Warrior
-Hitpoints: 45
-Damage: 18
-Race: Troll
+XPreward: 50
 
 Name: Fire Ogre
 Class: Warrior
-Hitpoints: 50
-Damage: 20
+Hitpoints: 25
+Damage: 10
 Race: Troll
+XPreward: 60
 
 Name: Undead Vampire
 Class: Mage
-Hitpoints: 40
-Damage: 16
-Race: Undead
-
-Name: Undead Lich
-Class: Mage
-Hitpoints: 50
-Damage: 18
-Race: Undead
-
-Name: Goblin Assassin
-Class: Scout
-Hitpoints: 25
-Damage: 12
-Race: Goblin
-
-Name: Goblin Warlock
-Class: Mage
-Hitpoints: 35
-Damage: 14
-Race: Goblin
-
-Name: Orc Chieftain
-Class: Warrior
-Hitpoints: 55
-Damage: 22
-Race: Orc
-
-Name: Orc Warlock
-Class: Mage
-Hitpoints: 40
-Damage: 18
-Race: Orc
-
-Name: Dwarf King
-Class: Warrior
-Hitpoints: 50
-Damage: 20
-Race: Dwarf
-
-Name: Dwarf Rune Master
-Class: Mage
-Hitpoints: 45
-Damage: 18
-Race: Dwarf
-
-Name: Elf Champion
-Class: Warrior
-Hitpoints: 40
-Damage: 16
-Race: Elf
-
-Name: Elf Sorcerer
-Class: Mage
-Hitpoints: 35
-Damage: 14
-Race: Elf
-
-Name: Human Paladin
-Class: Warrior
-Hitpoints: 45
-Damage: 18
-Race: Human
-
-Name: Human Warlock
-Class: Mage
-Hitpoints: 35
-Damage: 14
-Race: Human
-
-Name: Beast Lion
-Class: Warrior
-Hitpoints: 45
-Damage: 18
-Race: Beast
-
-Name: Beast Dire Wolf
-Class: Warrior
-Hitpoints: 55
-Damage: 22
-Race: Beast
-
-Name: Dragon Wyrm
-Class: Warrior
-Hitpoints: 120
-Damage: 35
-Race: Dragon
-
-Name: Dragon Wyvern
-Class: Warrior
-Hitpoints: 150
-Damage: 40
-Race: Dragon
-
-Name: Ice Troll
-Class: Warrior
-Hitpoints: 25
+Hitpoints: 20
 Damage: 8
-Race: Troll
-
-Name: Ice Ogre
-Class: Warrior
-Hitpoints: 45
-Damage: 18
-Race: Troll
-
-Name: Fire Ogre
-Class: Warrior
-Hitpoints: 50
-Damage: 20
-Race: Troll
-
-Name: Undead Vampire
-Class: Mage
-Hitpoints: 40
-Damage: 16
 Race: Undead
+XPreward: 50
 
 Name: Undead Lich
 Class: Mage
-Hitpoints: 50
-Damage: 18
+Hitpoints: 25
+Damage: 10
 Race: Undead
+XPreward: 70
 
 Name: Goblin Assassin
 Class: Scout
-Hitpoints: 25
-Damage: 12
+Hitpoints: 12
+Damage: 6
 Race: Goblin
+XPreward: 40
 
 Name: Goblin Warlock
 Class: Mage
-Hitpoints: 35
-Damage: 14
+Hitpoints: 15
+Damage: 7
 Race: Goblin
+XPreward: 50
 
 Name: Orc Chieftain
 Class: Warrior
-Hitpoints: 55
-Damage: 22
+Hitpoints: 30
+Damage: 12
 Race: Orc
+XPreward: 70
 
 Name: Orc Warlock
 Class: Mage
-Hitpoints: 40
-Damage: 18
+Hitpoints: 20
+Damage: 8
 Race: Orc
+XPreward: 50
 
 Name: Dwarf King
 Class: Warrior
-Hitpoints: 50
-Damage: 20
+Hitpoints: 25
+Damage: 10
 Race: Dwarf
+XPreward: 60
 
 Name: Dwarf Rune Master
 Class: Mage
-Hitpoints: 45
-Damage: 18
+Hitpoints: 22
+Damage: 9
 Race: Dwarf
+XPreward: 55
 
 Name: Elf Champion
 Class: Warrior
-Hitpoints: 40
-Damage: 16
+Hitpoints: 20
+Damage: 8
 Race: Elf
+XPreward: 50
 
 Name: Elf Sorcerer
 Class: Mage
-Hitpoints: 35
-Damage: 14
+Hitpoints: 18
+Damage: 7
 Race: Elf
+XPreward: 45
 
 Name: Human Paladin
 Class: Warrior
-Hitpoints: 45
-Damage: 18
+Hitpoints: 22
+Damage: 9
 Race: Human
+XPreward: 55
 
 Name: Human Warlock
 Class: Mage
-Hitpoints: 35
-Damage: 14
+Hitpoints: 18
+Damage: 7
 Race: Human
+XPreward: 45
 
 Name: Beast Lion
 Class: Warrior
-Hitpoints: 45
-Damage: 18
+Hitpoints: 20
+Damage: 8
 Race: Beast
+XPreward: 55
 
 Name: Beast Dire Wolf
 Class: Warrior
-Hitpoints: 55
-Damage: 22
+Hitpoints: 30
+Damage: 12
 Race: Beast
+XPreward: 75
 
 Name: Dragon Wyrm
 Class: Warrior
-Hitpoints: 120
-Damage: 35
+Hitpoints: 60
+Damage: 17
 Race: Dragon
+XPreward: 100
 
 Name: Dragon Wyvern
 Class: Warrior
-Hitpoints: 150
-Damage: 40
+Hitpoints: 80
+Damage: 20
 Race: Dragon
+XPreward: 120
