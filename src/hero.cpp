@@ -1,17 +1,6 @@
-#include "database.h"
+#include "../include/hero.h"
 
-Database::Database() {
-    db.setHostName("localhost");
-    db.setDatabaseName("RealmOfUbuntu");
-    db.setUserName("root");
-    db.setPassword("Fyu75wfr");
-    
-    if (db.open()) {
-        std::cout << "Connected to database" << std::endl;
-    } else {
-        std::cout << "Failed to connect to database: " << db.lastError().text().toStdString() << std::endl;
-    }
-
+Hero::Hero() {
     mQuery.exec("CREATE TABLE heroDatabase ("
                 "id INT PRIMARY KEY AUTO_INCREMENT,"
                 "name CHAR(125),"
@@ -21,41 +10,53 @@ Database::Database() {
                 "hitpoints INT,"
                 "damage INT,"
                 "goldAmount INT)");
-
-    mQuery.exec("CREATE TABLE enemiesDatabase ("
-                "id INT PRIMARY KEY AUTO_INCREMENT,"
-                "name CHAR(125),"
+    
+    mQuery.exec("CREATE TABLE currentHero ("
+                "name CHAR(125)," 
                 "class CHAR(125),"
+                "level INT,"
+                "experience INT,"
                 "hitpoints INT,"
                 "damage INT,"
-                "race CHAR(125),"
-                "XPreward INT)");
-
-    mQuery.exec("CREATE TABLE questDatabase ("
-                "id INT PRIMARY KEY AUTO_INCREMENT,"
-                "name CHAR(125),"
-                "description TEXT,"
-                "reward INT,"
-                "goldReward INT,"
-                "enemyRace CHAR(125))");
-
+                "goldAmount INT)");
 }
 
-Database::~Database() {
-    mQuery.exec("DROP TABLE enemiesDatabase");
-    mQuery.exec("DROP TABLE questDatabase");
-    db.close();
+Hero::~Hero() {   
+    selectQuery.prepare("SELECT * FROM currentHero");
+    if (!selectQuery.exec()) {
+        std::cerr << "Failed to retrieve hero data: " << selectQuery.lastError().text().toStdString() << std::endl;
+        return;
+    }
+
+    if (!selectQuery.next()) {
+        std::cerr << "No hero found in the database." << std::endl;
+        return;
+    }
+
+    QString name = selectQuery.value(0).toString();
+    int level = selectQuery.value(2).toInt();
+    int experience = selectQuery.value(3).toInt();
+    int hitpoints = selectQuery.value(4).toInt();
+    int damage = selectQuery.value(5).toInt();
+    int goldAmount = selectQuery.value(6).toInt();
+
+    updateQuery.prepare("UPDATE heroDatabase SET level = :level, experience = :experience, hitpoints = :hitpoints, damage = :damage, goldAmount = :goldAmount WHERE name = :name");
+    updateQuery.bindValue(":name", name);
+    updateQuery.bindValue(":level", level);
+    updateQuery.bindValue(":experience", experience);
+    updateQuery.bindValue(":hitpoints", hitpoints);
+    updateQuery.bindValue(":damage", damage);
+    updateQuery.bindValue(":goldAmount", goldAmount);
+
+    if (!updateQuery.exec()) {
+        std::cerr << "Failed to update hero data: " << updateQuery.lastError().text().toStdString() << std::endl;
+        return;
+    }
+
+    mQuery.exec("DROP TABLE currentHero");
 }
 
-void Database::clearConsole() {
-    #ifdef _WIN32
-        std::system("cls");
-    #else
-        std::system("clear");
-    #endif
-}
-
-bool Database::newHero() {
+bool Hero::newHero() {
     std::string name;
     int choice;
 
@@ -125,7 +126,7 @@ bool Database::newHero() {
         return false;
     }
 
-    clearConsole();
+    Utils::clearConsole();
     std::cout << "Welcome, " << name << "! Your journey begins now in the Realm of Ubuntu.\n";
     std::cout << "Press Enter to continue...";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -134,7 +135,7 @@ bool Database::newHero() {
     return true;
 }
 
-bool Database::loadHero() {
+bool Hero::loadHero() {
     mQuery.prepare("SELECT * FROM heroDatabase");
 
     if (!mQuery.exec()) {
@@ -195,7 +196,7 @@ bool Database::loadHero() {
     }
 
     if (!mQuery.next()) {
-        clearConsole();
+        Utils::clearConsole();
         std::cerr << "No hero found with the name " << heroName << std::endl;
         std::cout << "Press Enter to return to the main menu...";
         std::cin.get();
@@ -225,7 +226,7 @@ bool Database::loadHero() {
         return false;
     }
 
-    clearConsole();
+    Utils::clearConsole();
     std::cout << "Hero loaded successfully." << std::endl;
     std::cout << "Welcome, " << name.toStdString() << "! Your journey begins now in the Realm of Ubuntu.\n";
     std::cout << "Press Enter to continue...";
@@ -233,7 +234,7 @@ bool Database::loadHero() {
     return true;
 }
 
-void Database::deleteHero() {
+void Hero::deleteHero() {
     std::cout << "Hero Information" << std::endl;
     if (!mQuery.exec("SELECT * FROM heroDatabase")) {
         std::cerr << "Failed to retrieve hero data: " << mQuery.lastError().text().toStdString() << std::endl;
@@ -286,7 +287,7 @@ void Database::deleteHero() {
 
     std::cout << "Enter hero ID to delete: ";
     if (!(std::cin >> heroId)) {
-        clearConsole();
+        Utils::clearConsole();
         std::cerr << "Invalid input for hero id." << std::endl;
         std::cout << "Press Enter to return to the main menu...";
         std::cin.clear();
@@ -298,7 +299,7 @@ void Database::deleteHero() {
     mQuery.prepare("SELECT * FROM heroDatabase WHERE id = :id");
     mQuery.bindValue(":id", heroId);
     if (!mQuery.exec() || !mQuery.next()) {
-        clearConsole();
+        Utils::clearConsole();
         std::cerr << "No hero found with ID " << heroId << std::endl;
         std::cout << "Press Enter to return to the main menu...";
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -312,207 +313,119 @@ void Database::deleteHero() {
         std::cout << "Failed to delete hero from database: " << mQuery.lastError().text().toStdString() << std::endl;
         return;
     }
-    clearConsole();
+    Utils::clearConsole();
     std::cout << "Hero deleted successfully from database" << std::endl;
     std::cout << "Press Enter to continue...";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.get();
 }
 
-void Database::loadEnemiesFromFile() {
-    std::ifstream infile("enemy_data.txt");
-    if (!infile.is_open()) {
-        std::cerr << "Failed to open enemy file." << std::endl;
-        return;
-    }
-    
-    std::vector<std::string> enemyData;
-
-    std::string line;
-    while (std::getline(infile, line)) {
-        std::istringstream iss(line);
-        std::string garbage, restOfLine;
-        if (iss >> garbage) {  
-            std::getline(iss, restOfLine); 
-            enemyData.push_back(restOfLine);
-        }
-    } 
-
-    for (int i = 0; i < enemyData.size(); i += 6) {
-        std::string name = enemyData[i];
-        name.erase(0, name.find_first_not_of(" \t"));
-        name.erase(name.find_last_not_of(" \t") + 1);
-        std::string enemyclass = enemyData[i + 1];
-        enemyclass.erase(0, enemyclass.find_first_not_of(" \t"));
-        enemyclass.erase(enemyclass.find_last_not_of(" \t") + 1);
-        int hitpoints = std::stoi(enemyData[i + 2]);
-        int damage = std::stoi(enemyData[i + 3]);
-        std::string race = enemyData[i + 4];
-        race.erase(0, race.find_first_not_of(" \t"));
-        race.erase(race.find_last_not_of(" \t") + 1);
-        int XPreward = std::stoi(enemyData[i + 5]);
-
-        mQuery.prepare("INSERT INTO enemiesDatabase (name, class, hitpoints, damage, race, XPreward) VALUES (:name, :class, :hitpoints, :damage, :race, :XPreward)");
-        mQuery.bindValue(":name", QString::fromStdString(name));
-        mQuery.bindValue(":class", QString::fromStdString(enemyclass));
-        mQuery.bindValue(":hitpoints", hitpoints);
-        mQuery.bindValue(":damage", damage);
-        mQuery.bindValue(":race", QString::fromStdString(race));
-        mQuery.bindValue(":XPreward", XPreward);
-
-        if (!mQuery.exec()) {
-            std::cerr << "Failed to insert enemy into database: " << mQuery.lastError().text().toStdString() << std::endl;
-        }
-    }
-
-    infile.close();
-}
-
-void Database::loadQuestsFromFile() {
-    std::ifstream infile("quest_data.txt");
-    if (!infile.is_open()) {
-        std::cerr << "Failed to open quest file." << std::endl;
-        return;
-    }
-    
-    std::vector<std::string> questData;
-
-    std::string line;
-    while (std::getline(infile, line)) {
-        std::istringstream iss(line);
-        std::string garbage, restOfLine;
-        if (iss >> garbage) {  
-            std::getline(iss, restOfLine); 
-            questData.push_back(restOfLine);
-        }
-    } 
-
-    for (int i = 0; i < questData.size(); i += 5) {
-        std::string name = questData[i];
-        name.erase(0, name.find_first_not_of(" \t"));
-        name.erase(name.find_last_not_of(" \t") + 1);      
-        std::string description = questData[i + 1];
-        description.erase(0, description.find_first_not_of(" \t"));
-        description.erase(description.find_last_not_of(" \t") + 1);
-        int reward = std::stoi(questData[i + 2]);
-        int goldReward = std::stoi(questData[i + 3]);
-        std::string enemyRace = questData[i + 4];
-        enemyRace.erase(0, enemyRace.find_first_not_of(" \t"));
-        enemyRace.erase(enemyRace.find_last_not_of(" \t") + 1);
-
-        mQuery.prepare("INSERT INTO questDatabase (name, description, reward, goldReward, enemyRace) VALUES (:name, :description, :reward, :goldReward, :enemyRace)");
-        mQuery.bindValue(":name", QString::fromStdString(name));
-        mQuery.bindValue(":description", QString::fromStdString(description));
-        mQuery.bindValue(":reward", reward);
-        mQuery.bindValue(":goldReward", goldReward);
-        mQuery.bindValue(":enemyRace", QString::fromStdString(enemyRace));
-
-        if (!mQuery.exec()) {
-            std::cerr << "Failed to insert quest into database: " << mQuery.lastError().text().toStdString() << std::endl;
-        }
-    }
-
-    infile.close();
-}
-
-void Database::printEnemies() {
-    std::cout << "Enemy Information" << std::endl;
-    if (!mQuery.exec("SELECT * FROM enemiesDatabase")) {
-        std::cerr << "Failed to retrieve enemy data: " << mQuery.lastError().text().toStdString() << std::endl;
+void Hero::heroInfo() {
+    selectQuery.prepare("SELECT * FROM currentHero");
+    if (!selectQuery.exec()) {
+        std::cerr << "Failed to retrieve hero data: " << selectQuery.lastError().text().toStdString() << std::endl;
         return;
     }
 
-    while (mQuery.next()) {
-        QString name = mQuery.value(1).toString();
-        QString enemyclass = mQuery.value(2).toString();
-        int hitpoints = mQuery.value(3).toInt();
-        int damage = mQuery.value(4).toInt();
-        QString race = mQuery.value(5).toString();
-        int XPreward = mQuery.value(6).toInt();
-
-        std::cout << "Name: " << name.toStdString() << std::endl;
-        std::cout << "Class: " << enemyclass.toStdString() << std::endl;
-        std::cout << "Hitpoints: " << hitpoints << std::endl;
-        std::cout << "Damage: " << damage << std::endl;
-        std::cout << "race: " << race.toStdString() << std::endl;
-        std::cout << "XPreward: " << XPreward << std::endl;
-        std::cout << std::endl;
-    }
-}
-
-void Database::printQuests() {
-    std::cout << "Quest Information" << std::endl;
-    if (!mQuery.exec("SELECT * FROM questDatabase")) {
-        std::cerr << "Failed to retrieve quest data: " << mQuery.lastError().text().toStdString() << std::endl;
-        return;
-    }
-
-    while (mQuery.next()) {
-        QString name = mQuery.value(1).toString();
-        QString description = mQuery.value(2).toString();
-        int reward = mQuery.value(3).toInt();
-        int goldReward = mQuery.value(4).toInt();
-        QString enemyRace = mQuery.value(5).toString();
-
-        std::cout << "Name: " << name.toStdString() << std::endl;
-        std::cout << "Description:";
-        
-        int lineLength = 60;
-        int pos = 0;
-        while (pos < description.length()) {
-            int nextSpace = description.indexOf(' ', pos + lineLength);
-            if (nextSpace != -1 && nextSpace < pos + 2 * lineLength) {
-                std::cout << description.mid(pos, nextSpace - pos).toStdString() << std::endl;
-                pos = nextSpace + 1;
-            } else {
-                int spacePos = description.lastIndexOf(' ', pos + lineLength);
-                if (spacePos != -1 && spacePos > pos) {
-                    std::cout << description.mid(pos, spacePos - pos).toStdString() << std::endl;
-                    pos = spacePos + 1;
-                } else {
-                    std::cout << description.mid(pos).toStdString() << std::endl;
-                    pos = description.length();
-                }
-            }
-        }
-        
-        std::cout << "Reward: " << reward << std::endl;
-        std::cout << "Gold Reward: " << goldReward << std::endl;
-        std::cout << "Enemy Race: " << enemyRace.toStdString() << std::endl;
-        std::cout << std::endl;
-    }
-}
-
-void Database::printHero() {
-    std::cout << "Hero Information" << std::endl;
-    if (!mQuery.exec("SELECT * FROM heroDatabase")) {
-        std::cerr << "Failed to retrieve hero data: " << mQuery.lastError().text().toStdString() << std::endl;
-        return;
-    }
-
-    if (!mQuery.next()) {
+    if (!selectQuery.next()) {
         std::cerr << "No hero found in the database." << std::endl;
         return;
     }
 
-    while (mQuery.next()) {
-        int id = mQuery.value(0).toInt();
-        QString name = mQuery.value(1).toString();
-        QString heroClass = mQuery.value(2).toString();
-        int level = mQuery.value(3).toInt();
-        int experience = mQuery.value(4).toInt();
-        int hitpoints = mQuery.value(5).toInt();
-        int damage = mQuery.value(6).toInt();
-        int goldAmount = mQuery.value(7).toInt();
+    Utils::clearConsole();
+    
+    std::cout << "========================================" << std::endl;
+    std::cout << "              Hero Information           " << std::endl;
+    std::cout << "========================================" << std::endl;
 
-        std::cout << "ID: " << id << std::endl;
-        std::cout << "Name: " << name.toStdString() << std::endl;
-        std::cout << "Class: " << heroClass.toStdString() << std::endl;
-        std::cout << "Level: " << level << std::endl;
-        std::cout << "Experience: " << experience << std::endl;
-        std::cout << "Hitpoints: " << hitpoints << std::endl;
-        std::cout << "Damage: " << damage << std::endl;
-        std::cout << "Gold: " << goldAmount << std::endl;
-        std::cout << std::endl;
+    QString name = selectQuery.value(0).toString();
+    QString heroClass = selectQuery.value(1).toString();
+    int level = selectQuery.value(2).toInt();
+    int experience = selectQuery.value(3).toInt();
+    int hitpoints = selectQuery.value(4).toInt();
+    int damage = selectQuery.value(5).toInt();
+    int goldAmount = selectQuery.value(6).toInt();
+
+    std::cout << "Name: " << name.toStdString() << std::endl;
+    std::cout << "Class: " << heroClass.toStdString() << std::endl;
+    std::cout << "Level: " << level << std::endl;
+    std::cout << "Experience: " << experience << std::endl;
+    std::cout << "Hitpoints: " << hitpoints << std::endl;
+    std::cout << "Damage: " << damage << std::endl;
+    std::cout << "Gold: " << goldAmount << std::endl;
+
+    std::cout << "========================================" << std::endl;
+    std::cout << "Press Enter to return to the main menu...";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get();
+}
+
+void Hero::levelSystem() {
+    Utils::clearConsole();
+
+    selectQuery.prepare("SELECT * FROM currentHero");
+    if (!selectQuery.exec()) {
+        std::cerr << "Failed to retrieve hero data: " << selectQuery.lastError().text().toStdString() << std::endl;
+        return;
+    }
+
+    if (!selectQuery.next()) {
+        std::cerr << "No hero found in the database." << std::endl;
+        return;
+    }
+
+    int level = selectQuery.value(2).toInt();
+    int experience = selectQuery.value(3).toInt();
+    if (experience >= level * 1000){
+        while (experience >= level * 1000) {
+            mQuery.prepare("UPDATE currentHero SET experience = experience - :experience, level = level + 1");
+            mQuery.bindValue(":experience", level * 1000);
+            if (!mQuery.exec()) {
+                std::cerr << "Failed to update hero stats: " << mQuery.lastError().text().toStdString() << std::endl;
+                return;
+            }
+            experience -= level * 1000;
+            level++;
+        
+            QString heroName = selectQuery.value(0).toString();
+            QString heroClass = selectQuery.value(1).toString();
+            int hitpoints = selectQuery.value(4).toInt();
+            int damage = selectQuery.value(5).toInt();
+
+            QString updateStatement;
+            updateStatement = "UPDATE currentHero SET level = :level";
+
+            int hitpointsIncrease = 0;
+            int damageIncrease = 0;
+
+            if (heroClass == "Warrior") {
+                hitpointsIncrease = 10;
+                damageIncrease = 4;
+            } else if (heroClass == "Scout") {
+                hitpointsIncrease = 8;
+                damageIncrease = 6;
+            } else if (heroClass == "Mage") {
+                hitpointsIncrease = 4;
+                damageIncrease = 10;
+            }
+
+            updateStatement += ", hitpoints = hitpoints + :hitpoints, damage = damage + :damage WHERE class = :class";
+            updateQuery.prepare(updateStatement);
+            updateQuery.bindValue(":level", level);
+            updateQuery.bindValue(":hitpoints", hitpointsIncrease);
+            updateQuery.bindValue(":damage", damageIncrease);
+            updateQuery.bindValue(":class", heroClass);
+
+            if (!updateQuery.exec()) {
+                std::cerr << "Failed to update hero stats: " << updateQuery.lastError().text().toStdString() << std::endl;
+                return;
+            }
+            std::cout << "Congratulations! Your hero has leveled up to level " << level << "." << std::endl;
+        }
+        std::cout << "Press Enter to continue...";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.get();
     }
 }
+
+

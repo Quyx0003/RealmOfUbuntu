@@ -1,52 +1,25 @@
-#include <iostream>
-#include "database.h"
-#include "hero.h"
-#include "quest.h"
+#include "include/database.h"
+#include "include/hero.h"
+#include "include/quest.h"
+#include "include/utils.h"
+#include "include/debug.h"
+#include "include/enemy.h"
+#include "include/game.h"
 
-void clearConsole() {
-    #ifdef _WIN32
-        std::system("cls");
-    #else
-        std::system("clear");
-    #endif
-}
-
-void printMainMenu() {
-    std::cout << "=============================" << std::endl;
-    std::cout << "       Realm of Ubuntu       " << std::endl;
-    std::cout << "=============================" << std::endl;
-    std::cout << "1. New Character" << std::endl;
-    std::cout << "2. Load Character" << std::endl;
-    std::cout << "3. Delete Character" << std::endl;
-    std::cout << "4. Quit" << std::endl;
-    std::cout << "=============================" << std::endl;
-    std::cout << "Enter your choice: ";
-}
-
-void printGameMenu() {
-    std::cout << "=============================" << std::endl;
-    std::cout << "       Explore the World      " << std::endl;
-    std::cout << "=============================" << std::endl;
-    std::cout << "1. Print Hero Stats" << std::endl;
-    std::cout << "2. Explore" << std::endl;
-    std::cout << "3. Quit" << std::endl;
-    std::cout << "=============================" << std::endl;
-    std::cout << "Enter your choice: ";
-}
-
-void exploreWorld(Quest& quest, Hero& hero) {
+void exploreWorld(Quest& quest, Hero& hero, Game& game) {
     int choice;
     do {
-        clearConsole();
-        printGameMenu();
+        Utils::clearConsole();
+        Utils::printGameMenu();
         std::cin >> choice;
         switch(choice) {
             case 1:
-                hero.printHero();
+                hero.heroInfo();
                 break;
             case 2:
                 quest.loadQuest();
-                quest.chooseQuest();
+                quest.printQuests();
+                game.explore();
                 hero.levelSystem();
                 break;
             case 3:
@@ -62,31 +35,34 @@ int main() {
     Database db;
     Hero hero;
     Quest quest;
+    Debug debug;
+    Enemy enemy;
+    Game game;
 
-    db.loadEnemiesFromFile();
-    db.loadQuestsFromFile();
+    enemy.loadEnemyFromFile();
+    quest.loadQuestsFromFile();
     
     int choice;
     do {
-        clearConsole();
-        printMainMenu();
+        Utils::clearConsole();
+        Utils::printMainMenu();
         std::cin >> choice;
         switch(choice) {
             case 1:
-                clearConsole();
-                if (db.newHero()) {
-                    exploreWorld(quest, hero);
+                Utils::clearConsole();
+                if (hero.newHero()) {
+                    exploreWorld(quest, hero, game);
                 }
                 break;
             case 2:
-                clearConsole();
-                if (db.loadHero()) {
-                    exploreWorld(quest, hero);
+                Utils::clearConsole();
+                if (hero.loadHero()) {
+                    exploreWorld(quest, hero, game);
                 }
                 break;
             case 3:
-                clearConsole();
-                db.deleteHero();
+                Utils::clearConsole();
+                hero.deleteHero();
                 break;
             case 4:
                 std::cout << "Exiting the game..." << std::endl;

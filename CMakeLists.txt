@@ -11,16 +11,20 @@ if(NOT Qt5_FOUND)
     message(FATAL_ERROR "Qt5 not found! Please install Qt5.")
 endif()
 
-add_executable(RealmOfUbuntu main.cpp)
+add_executable(RealmOfUbuntu 
+    main.cpp
+    src/hero.cpp
+    src/database.cpp
+    src/quest.cpp
+    src/debug.cpp
+    src/utils.cpp
+    src/enemy.cpp
+    src/game.cpp
+)
 
-target_sources(RealmOfUbuntu
-    PRIVATE
-        hero.cpp
-        hero.h
-        database.cpp
-        database.h
-        quest.cpp
-        quest.h
+target_include_directories(RealmOfUbuntu 
+    PRIVATE 
+        include
 )
 
 target_link_libraries(RealmOfUbuntu
@@ -30,5 +34,7 @@ target_link_libraries(RealmOfUbuntu
         Qt5::Sql
 )
 
-configure_file(${CMAKE_SOURCE_DIR}/enemy_data.txt ${CMAKE_BINARY_DIR}/enemy_data.txt)
-configure_file(${CMAKE_SOURCE_DIR}/quest_data.txt ${CMAKE_BINARY_DIR}/quest_data.txt)
+configure_file(${CMAKE_SOURCE_DIR}/data/enemy_data.txt ${CMAKE_BINARY_DIR}/enemy_data.txt)
+configure_file(${CMAKE_SOURCE_DIR}/data/quest_data.txt ${CMAKE_BINARY_DIR}/quest_data.txt)
+
+

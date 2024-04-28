@@ -1,25 +1,24 @@
 #ifndef HERO_H
 #define HERO_H
 
-#include <QtSql>
-#include <QSqlDatabase>
-#include <string>
-#include <iostream>
+#include "utils.h"
 
 class Hero {
 public:
     Hero();
     ~Hero();
 
-    void clearConsole();
+    bool newHero();
+    bool loadHero();
+    void deleteHero();
 
+    void heroInfo();
     void levelSystem();
-
-    void printHero();
-    void GiveExperience(int experience);
 
 private:
     QSqlQuery mQuery, selectQuery, insertQuery, updateQuery;
 };
 
 #endif // HERO_H
+
+
