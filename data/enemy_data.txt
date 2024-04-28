@@ -19,20 +19,6 @@ Damage: 10
 Race: Troll
 XPreward: 60
 
-Name: Undead Vampire
-Class: Mage
-Hitpoints: 20
-Damage: 8
-Race: Undead
-XPreward: 50
-
-Name: Undead Lich
-Class: Mage
-Hitpoints: 25
-Damage: 10
-Race: Undead
-XPreward: 70
-
 Name: Goblin Assassin
 Class: Scout
 Hitpoints: 12

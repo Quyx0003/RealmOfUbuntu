@@ -71,10 +71,8 @@ void Quest::loadQuestsFromFile() {
 }
 
 void Quest::loadQuest() {
-    if (!mQuery.exec("DELETE FROM currentQuests")) {
-        std::cerr << "Failed to clear currentQuests database." << std::endl;
-        return;
-    }
+    mQuery.exec("DELETE FROM currentQuests");
+    mQuery.exec("DELETE FROM currentEnemy");
 
     int totalQuests = 0;
     mQuery.exec("SELECT COUNT(*) FROM questDatabase");
@@ -134,14 +132,17 @@ void Quest::printQuests() {
     std::cout << "========================================" << std::endl;
     std::cout << std::endl;
 
+    std::cout << "Select a quest:" << std::endl;
+
     if (!mQuery.exec("SELECT * FROM currentQuests")) {
         std::cerr << "Failed to retrieve quest data: " << mQuery.lastError().text().toStdString() << std::endl;
         return;
     }
-
+    QVector<QString> questNames;
     while (mQuery.next()) {
         int id = mQuery.value(0).toInt();
         QString name = mQuery.value(1).toString();
+        questNames.push_back(name);
         QString description = mQuery.value(2).toString();
         int reward = mQuery.value(3).toInt();
         int goldReward = mQuery.value(4).toInt();
@@ -156,6 +157,11 @@ void Quest::printQuests() {
         std::cout << "Gold Reward: " << goldReward << std::endl;
         std::cout << std::endl;
     }
+
+    std::cout << "1. " << questNames[0].toStdString() << std::endl;
+    std::cout << "2. " << questNames[1].toStdString() << std::endl;
+    std::cout << "3. " << questNames[2].toStdString() << std::endl;
+    std::cout << "4. Go back" << std::endl;
 }
 
 

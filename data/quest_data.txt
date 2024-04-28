@@ -1,215 +1,215 @@
 Name: Lost Relic
 Description: An ancient relic has been stolen from the village shrine. Track down the thieves and retrieve the relic. Be warned, the path is perilous.
 Reward: 300 XP
-GoldReward: 200
+GoldReward: 20 Gold
 EnemyRace: Human
 
 Name: Dark Forest Menace
 Description: The dark forest on the outskirts of the kingdom is teeming with dangerous creatures. Clear the forest of the monstrous beasts to ensure the safety of the villagers.
 Reward: 360 XP
-GoldReward: 240
+GoldReward: 24 Gold
 EnemyRace: Elf
 
 Name: Dwarven Mine Expedition
 Description: The dwarven mine has been overrun by hostile forces. Venture into the depths of the mine and reclaim it from the invaders.
 Reward: 420 XP
-GoldReward: 280
+GoldReward: 28 Gold
 EnemyRace: Dwarf
 
 Name: Orcish Raiders
 Description: Orcish raiders have been attacking nearby villages, pillaging and plundering as they go. Put an end to their reign of terror by defeating their warband.
 Reward: 480 XP
-GoldReward: 320
+GoldReward: 32 Gold
 EnemyRace: Orc
 
 Name: Goblin Ambush
 Description: Goblins have set up an ambush along a major trade route, causing chaos and disrupting trade. Drive them out and restore safety to the roads.
 Reward: 540 XP
-GoldReward: 360
+GoldReward: 36 Gold
 EnemyRace: Goblin
 
 Name: Troll Infestation
 Description: Trolls have been spotted near the village, causing havoc and destruction. Hunt down the trolls and eliminate the threat they pose.
 Reward: 600 XP
-GoldReward: 400
+GoldReward: 40 Gold
 EnemyRace: Troll
 
 Name: Undead Menace
 Description: The dead have risen from their graves and are terrorizing the countryside. Put an end to the undead menace before it's too late.
 Reward: 660 XP
-GoldReward: 440
+GoldReward: 44 Gold
 EnemyRace: Undead
 
 Name: Dragon's Lair
 Description: A fearsome dragon has made its lair in the nearby mountains, threatening to incinerate everything in its path. Slay the dragon and claim a mighty reward.
 Reward: 720 XP
-GoldReward: 480
+GoldReward: 48 Gold
 EnemyRace: Dragon
 
 Name: Beast Hunt
 Description: Ferocious beasts have been sighted in the forest, attacking travelers and threatening the safety of the kingdom. Track down and eliminate the beasts to restore peace.
 Reward: 780 XP
-GoldReward: 520
+GoldReward: 52 Gold
 EnemyRace: Beast
 
 Name: The Bandit King
 Description: A notorious bandit leader has been terrorizing the region, plundering villages and evading capture. Hunt down the Bandit King and bring him to justice.
 Reward: 840 XP
-GoldReward: 560
+GoldReward: 56 Gold
 EnemyRace: Human
 
 Name: Elven Diplomacy
 Description: Relations with the neighboring elven kingdom are strained. Embark on a diplomatic mission to improve relations and secure peace between the two realms.
 Reward: 900 XP
-GoldReward: 600
+GoldReward: 60 Gold
 EnemyRace: Elf
 
 Name: The Lost Expedition
 Description: An expedition into the mountains has gone missing. Brave the treacherous terrain and rescue the lost adventurers before it's too late.
 Reward: 960 XP
-GoldReward: 640
+GoldReward: 64 Gold
 EnemyRace: Dwarf
 
 Name: Orcish Siege
 Description: The orcish horde is preparing to lay siege to a strategic fortress. Defend the fortress and repel the invaders to secure the kingdom's borders.
 Reward: 1020 XP
-GoldReward: 680
+GoldReward: 68 Gold
 EnemyRace: Orc
 
 Name: The Goblin King
 Description: The goblin king has amassed a vast army and threatens to overrun the kingdom. Storm the goblin stronghold and defeat the king to end the threat.
 Reward: 1080 XP
-GoldReward: 720
+GoldReward: 72 Gold
 EnemyRace: Goblin
 
 Name: Troll Rampage
 Description: Trolls have emerged from their mountain lairs and are rampaging through the countryside. Stop the trolls before they cause further destruction.
 Reward: 1140 XP
-GoldReward: 760
+GoldReward: 76 Gold
 EnemyRace: Troll
 
 Name: Curse of the Crypt
 Description: A cursed crypt has been unearthed, unleashing vengeful spirits upon the land. Seal the crypt and put an end to the curse before it consumes everything.
 Reward: 1200 XP
-GoldReward: 800
+GoldReward: 80 Gold
 EnemyRace: Undead
 
 Name: Dragon's Fury
 Description: The dragon has returned, more powerful and destructive than ever. Gather your allies and prepare for the ultimate battle against the fiery beast.
 Reward: 1260 XP
-GoldReward: 840
+GoldReward: 84 Gold
 EnemyRace: Dragon
 
 Name: Hunt for the Beastmaster
 Description: A master beast tamer is using his creatures to wreak havoc across the kingdom. Track down the beastmaster and put an end to his reign of terror.
 Reward: 1320 XP
-GoldReward: 880
+GoldReward: 88 Gold
 EnemyRace: Beast
 
 Name: The Stolen Crown
 Description: The royal crown has been stolen by a cunning thief. Embark on a quest to recover the stolen artifact and restore honor to the kingdom.
 Reward: 1380 XP
-GoldReward: 920
+GoldReward: 92 Gold
 EnemyRace: Human
 
 Name: Elven Treachery
 Description: Elves from the neighboring kingdom have launched a surprise attack on the border villages. Push back the elven invaders and secure the kingdom's borders.
 Reward: 1440 XP
-GoldReward: 960
+GoldReward: 96 Gold
 EnemyRace: Elf
 
 Name: Into the Depths
 Description: Deep within the earth, a great evil stirs. Descend into the depths and confront the darkness that threatens to engulf the land.
 Reward: 1500 XP
-GoldReward: 1000
+GoldReward: 100 Gold
 EnemyRace: Dwarf
 
 Name: Orcish Uprising
 Description: The orcs have risen up against their human neighbors, seeking to claim the land as their own. Crush the orcish rebellion and restore peace to the kingdom.
 Reward: 1560 XP
-GoldReward: 1040
+GoldReward: 104 Gold
 EnemyRace: Orc
 
 Name: The Goblin Horde
 Description: The goblin horde marches upon the kingdom, intent on conquest and destruction. Stand against the goblin tide and defend the realm from their savagery.
 Reward: 1620 XP
-GoldReward: 1080
+GoldReward: 108 Gold
 EnemyRace: Goblin
 
 Name: Troll King's Fury
 Description: The troll king has awakened from his slumber and leads his army in an all-out assault on the kingdom. Gather your allies and prepare for the ultimate battle.
 Reward: 1680 XP
-GoldReward: 1120
+GoldReward: 112 Gold
 EnemyRace: Troll
 
 Name: The Haunted Forest
 Description: The forest is haunted by malevolent spirits, driving travelers mad with fear. Venture into the heart of the forest and uncover the source of the haunting.
 Reward: 1740 XP
-GoldReward: 1160
+GoldReward: 116 Gold
 EnemyRace: Undead
 
 Name: Dragon's Wrath
 Description: The dragon's fury knows no bounds as it lays waste to the kingdom. Gather your courage and face the fiery beast in a battle for the ages.
 Reward: 1800 XP
-GoldReward: 1200
+GoldReward: 120 Gold
 EnemyRace: Dragon
 
 Name: Beastmaster's Revenge
 Description: The beastmaster seeks vengeance for the fall of his creatures. Confront the enraged beastmaster and put an end to his wrath before it's too late.
 Reward: 1860 XP
-GoldReward: 1240
+GoldReward: 124 Gold
 EnemyRace: Beast
 
 Name: The Forbidden Temple
 Description: Deep within the jungle lies a temple shrouded in mystery and danger. Explore the temple and uncover its secrets, but beware the guardians that protect it.
 Reward: 1920 XP
-GoldReward: 1280
+GoldReward: 128 Gold
 EnemyRace: Human
 
 Name: Elven Exile
 Description: A group of exiled elves has taken refuge in the forest, plotting revenge against those who wronged them. Put an end to their schemes before they can strike.
 Reward: 1980 XP
-GoldReward: 1320
+GoldReward: 132 Gold
 EnemyRace: Elf
 
 Name: Dwarven Legacy
 Description: The dwarven king's tomb has been desecrated, and his restless spirit now haunts the land. Lay the king's spirit to rest and restore peace to the kingdom.
 Reward: 2040 XP
-GoldReward: 1360
+GoldReward: 136 Gold
 EnemyRace: Dwarf
 
 Name: Orcish Rampage
 Description: The orcs have broken free from their chains and are rampaging through the countryside. Stop the orcish horde before it can lay waste to everything in its path.
 Reward: 2100 XP
-GoldReward: 1400
+GoldReward: 140 Gold
 EnemyRace: Orc
 
 Name: The Goblin Warlord
 Description: The goblin warlord has united the goblin tribes and threatens to engulf the kingdom in war. Put an end to the warlord's ambitions and restore peace to the land.
 Reward: 2160 XP
-GoldReward: 1440
+GoldReward: 144 Gold
 EnemyRace: Goblin
 
 Name: Troll Warlord's Fury
 Description: The troll warlord leads his army in a relentless assault on the kingdom. Rally your forces and stand against the troll onslaught to secure the realm.
 Reward: 2220 XP
-GoldReward: 1480
+GoldReward: 148 Gold
 EnemyRace: Troll
 
 Name: The Cursed Crypt
 Description: The curse of the crypt has spread, raising the dead to terrorize the living. Venture into the heart of the crypt and put an end to the curse before it's too late.
 Reward: 2280 XP
-GoldReward: 1520
+GoldReward: 152 Gold
 EnemyRace: Undead
 
 Name: Dragon's Reign
 Description: The dragon has claimed dominion over the kingdom, demanding tribute and sacrifices from its subjects. Rise up and overthrow the dragon's tyrannical rule.
 Reward: 2340 XP
-GoldReward: 1560
+GoldReward: 156 Gold
 EnemyRace: Dragon
 
 Name: Beastmaster's Last Stand
 Description: The beastmaster makes his final stand, unleashing his most powerful creatures in a desperate bid for victory. Defeat the beastmaster and end his reign of terror.
 Reward: 2400 XP
-GoldReward: 1600
+GoldReward: 160 Gold
 EnemyRace: Beast

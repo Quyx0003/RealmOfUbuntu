@@ -1,0 +1,35 @@
+Name: Frostbite
+Class: Mage
+Hitpoints: 300
+Damage: 40
+Race: Elemental
+
+Name: Shadowfang
+Class: Warrior
+Hitpoints: 350
+Damage: 45
+Race: Undead
+
+Name: Inferno
+Class: Mage
+Hitpoints: 400
+Damage: 50
+Race: Demon
+
+Name: Leviathan
+Class: Warrior
+Hitpoints: 450
+Damage: 55
+Race: Aquatic
+
+Name: Dreadmaw
+Class: Warrior
+Hitpoints: 500
+Damage: 60
+Race: Demon
+
+Name: Seraphiel
+Class: Mage
+Hitpoints: 550
+Damage: 65
+Race: Celestial

@@ -20,6 +20,7 @@ add_executable(RealmOfUbuntu
     src/utils.cpp
     src/enemy.cpp
     src/game.cpp
+    src/dungeon.cpp
 )
 
 target_include_directories(RealmOfUbuntu 
@@ -36,5 +37,8 @@ target_link_libraries(RealmOfUbuntu
 
 configure_file(${CMAKE_SOURCE_DIR}/data/enemy_data.txt ${CMAKE_BINARY_DIR}/enemy_data.txt)
 configure_file(${CMAKE_SOURCE_DIR}/data/quest_data.txt ${CMAKE_BINARY_DIR}/quest_data.txt)
+configure_file(${CMAKE_SOURCE_DIR}/data/dungeon_data.txt ${CMAKE_BINARY_DIR}/dungeon_data.txt)
+configure_file(${CMAKE_SOURCE_DIR}/data/dungeon_boss_data.txt ${CMAKE_BINARY_DIR}/dungeon_boss_data.txt)
+configure_file(${CMAKE_SOURCE_DIR}/data/dungeon_enemy_data.txt ${CMAKE_BINARY_DIR}/dungeon_enemy_data.txt)
 
 

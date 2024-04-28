@@ -25,8 +25,9 @@ void Utils::printGameMenu() {
     std::cout << "       Explore the World      " << std::endl;
     std::cout << "=============================" << std::endl;
     std::cout << "1. Print Hero Stats" << std::endl;
-    std::cout << "2. Explore" << std::endl;
-    std::cout << "3. Quit" << std::endl;
+    std::cout << "2. Talk to Bartender" << std::endl;
+    std::cout << "3. Enter Dungeon" << std::endl;
+    std::cout << "4. Quit" << std::endl;
     std::cout << "=============================" << std::endl;
     std::cout << "Enter your choice: ";
 }

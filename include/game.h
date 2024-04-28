@@ -15,7 +15,8 @@ struct Character {
 
 class Game {
 public:
-    void explore();
+    void chooseQuest();
+    void enterDungeon();
     
 private:
     QSqlQuery mQuery;

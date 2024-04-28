@@ -1,0 +1,209 @@
+Name: Ice Elemental
+Class: Mage
+Hitpoints: 100
+Damage: 20
+Race: Elemental
+Serves: Frostbite
+
+Name: Frost Spider
+Class: Scout
+Hitpoints: 80
+Damage: 15
+Race: Arachnid
+Serves: Frostbite
+
+Name: Frozen Ghoul
+Class: Warrior
+Hitpoints: 120
+Damage: 25
+Race: Undead
+Serves: Frostbite
+
+Name: Frost Yeti
+Class: Warrior
+Hitpoints: 110
+Damage: 22
+Race: Beast
+Serves: Frostbite
+
+Name: Ice Drake
+Class: Mage
+Hitpoints: 150
+Damage: 30
+Race: Dragon
+Serves: Frostbite
+
+Name: Wraith
+Class: Warrior
+Hitpoints: 90
+Damage: 18
+Race: Undead
+Serves: Shadowfang
+
+Name: Skeleton Warrior
+Class: Warrior
+Hitpoints: 110
+Damage: 22
+Race: Undead
+Serves: Shadowfang
+
+Name: Specter
+Class: Mage
+Hitpoints: 100
+Damage: 20
+Race: Undead
+Serves: Shadowfang
+
+Name: Shadow Fiend
+Class: Mage
+Hitpoints: 120
+Damage: 25
+Race: Demon
+Serves: Shadowfang
+
+Name: Necromancer
+Class: Mage
+Hitpoints: 130
+Damage: 26
+Race: Human
+Serves: Shadowfang
+
+Name: Fire Imp
+Class: Mage
+Hitpoints: 80
+Damage: 15
+Race: Elemental
+Serves: Inferno
+
+Name: Lava Elemental
+Class: Mage
+Hitpoints: 120
+Damage: 25
+Race: Elemental
+Serves: Inferno
+
+Name: Hellhound
+Class: Warrior
+Hitpoints: 100
+Damage: 20
+Race: Demon
+Serves: Inferno
+
+Name: Fire Drake
+Class: Mage
+Hitpoints: 130
+Damage: 26
+Race: Dragon
+Serves: Inferno
+
+Name: Magma Golem
+Class: Warrior
+Hitpoints: 140
+Damage: 28
+Race: Construct
+Serves: Inferno
+
+Name: Deep Sea Horror
+Class: Mage
+Hitpoints: 120
+Damage: 25
+Race: Elemental
+Serves: Leviathan
+
+Name: Murloc Warrior
+Class: Warrior
+Hitpoints: 90
+Damage: 18
+Race: Aquatic
+Serves: Leviathan
+
+Name: Giant Crab
+Class: Warrior
+Hitpoints: 100
+Damage: 20
+Race: Aquatic
+Serves: Leviathan
+
+Name: Abyssal Serpent
+Class: Warrior
+Hitpoints: 130
+Damage: 26
+Race: Beast
+Serves: Leviathan
+
+Name: Leviathan Hatchling
+Class: Warrior
+Hitpoints: 150
+Damage: 30
+Race: Aquatic
+Serves: Leviathan
+
+Name: Dark Cultist
+Class: Mage
+Hitpoints: 110
+Damage: 22
+Race: Human
+Serves: Dreadmaw
+
+Name: Shadow Wraith
+Class: Mage
+Hitpoints: 100
+Damage: 20
+Race: Undead
+Serves: Dreadmaw
+
+Name: Possessed Armor
+Class: Warrior
+Hitpoints: 130
+Damage: 25
+Race: Construct
+Serves: Dreadmaw
+
+Name: Dark Warlock
+Class: Mage
+Hitpoints: 120
+Damage: 24
+Race: Human
+Serves: Dreadmaw
+
+Name: Dreadspawn
+Class: Warrior
+Hitpoints: 140
+Damage: 28
+Race: Demon
+Serves: Dreadmaw
+
+Name: Celestial Guardian
+Class: Warrior
+Hitpoints: 150
+Damage: 30
+Race: Celestial
+Serves: Seraphiel
+
+Name: Star Elemental
+Class: Mage
+Hitpoints: 140
+Damage: 28
+Race: Elemental
+Serves: Seraphiel
+
+Name: Astral Warden
+Class: Warrior
+Hitpoints: 160
+Damage: 32
+Race: Celestial
+Serves: Seraphiel
+
+Name: Celestial Arbiter
+Class: Mage
+Hitpoints: 170
+Damage: 34
+Race: Celestial
+Serves: Seraphiel
+
+Name: Celestial Herald
+Class: Mage
+Hitpoints: 180
+Damage: 36
+Race: Celestial
+Serves: Seraphiel

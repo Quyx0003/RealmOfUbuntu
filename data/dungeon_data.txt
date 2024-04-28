@@ -1,0 +1,41 @@
+Name: Frostbite Caverns
+Description: Deep within the icy mountains lies the Frostbite Caverns, a labyrinth of frozen tunnels and deadly traps. Venture into its depths and face the chilling horrors that lurk within.
+Reward: 10000 XP
+GoldReward: 800 Gold
+Boss: Frostbite
+CompletionMessage: "A sense of unease lingers as you leave the caverns..."
+
+Name: Shadowed Crypt
+Description: The Shadowed Crypt is an ancient burial site haunted by vengeful spirits and dark magic. Only the bravest adventurers dare to explore its cursed halls and face the undead horrors that dwell within.
+Reward: 12000 XP
+GoldReward: 1000 Gold
+Boss: Shadowfang
+CompletionMessage: "You feel a chill run down your spine as you exit the crypt..."
+
+Name: Inferno Citadel
+Description: Brave the blazing heat of the Inferno Citadel, where the firelord Inferno reigns. Conquer him to bring an end to his fiery rampage and claim the treasures hidden within.
+Reward: 15000 XP
+GoldReward: 1200 Gold
+Boss: Inferno
+CompletionMessage: "The inferno rages on as you make your escape..."
+
+Name: Abyssal Depths
+Description: The Abyssal Depths are a network of underwater caverns teeming with ancient horrors. Dive into the dark waters and discover the secrets hidden beneath the waves.
+Reward: 15000 XP
+GoldReward: 1200 Gold
+Boss: Leviathan
+CompletionMessage: "The deep sea whispers of new terrors to come..."
+
+Name: Darkwood Keep
+Description: Darkwood Keep is a fortress shrouded in darkness, home to a powerful sorcerer and his legion of minions. Enter if you dare, but beware the shadows that hunger for your soul.
+Reward: 18000 XP
+GoldReward: 1500 Gold
+Boss: Dreadmaw
+CompletionMessage: "The darkness stirs as you depart the keep..."
+
+Name: Celestial Spire
+Description: The Celestial Spire reaches high into the sky, its towers touching the heavens. But within its halls lie ancient guardians and celestial beings that will test the strength of any adventurer.
+Reward: 20000 XP
+GoldReward: 2000 Gold
+Boss: Seraphiel
+CompletionMessage: "A feeling of foreboding lingers as you descend from the spire..."
